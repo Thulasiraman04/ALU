@@ -1,168 +1,38 @@
-# Aim:
-To stimulate and synthesis 16bit ALU using Vivado.
+# AIM:
+To design and simulate Priority Encoder using vivado.
 
-# Software Required:
-vivado 2023.2 software.
+# APPARATUS REQUIRED:
+Pc with vivado software.
 
-# Procedure:
-STEP:1 Start the vivado software, Select and Name the New project.
-
-STEP:2 Select the device family, device, package and speed.
-
+# PROCEDURE:
+STEP:1 Start the Xilinx navigator, Select and Name the New project. STEP:2 Select the device family, device, package and speed.
 STEP:3 Select new source in the New Project and select Verilog Module as the Source type.
-
-STEP:4 Type the File Name and module name and Click Next and then finish button. Type the code and save it.
-
-STEP:5 Select the run simulation and then run Behavioral Simulation in the Source Window and click the check syntax.
-
+STEP:4 Type the File Name and Click Next and then finish button. Type the code and save it. STEP:5 Select the Behavioral Simulation in the Source Window and click the check syntax.
 STEP:6 Click the simulation to simulate the program and give the inputs and verify the outputs as per the truth table.
+STEP:7 Select the Implementation in the Sources Window and select the required file in the Processes Window. STEP:8 Select Check Syntax from the Synthesize XST Process. Double Click in the FloorplanArea/IO/Logic-Post Synthesis process in the User Constraints process group. UCF(User constraint File) is obtained. STEP:9 In the Design Object List Window, enter the pin location for each pin in the Loc column Select save from the File menu. STEP:10 Double click on the Implement Design and double click on the Generate Programming File to create a bitstream of the design.(.v) file is converted into .bit file here. STEP:11 On the board, by giving required input, the LEDs starts to glow light, indicating the output.
 
-STEP:7 compare the output with truth table.
-# ALU
-![image](https://github.com/RESMIRNAIR/ALU/assets/154305926/33dff162-59b3-44e2-886a-1ddd6e60979f)
-# ALU Arithmetic and Logic Operations
-----------------------------------------------------------------------
-|ALU_Sel|   ALU Operation
-----------------------------------------------------------------------
-| 0000  |   ALU_Out = A + B;
-----------------------------------------------------------------------
-| 0001  |   ALU_Out = A - B;
-----------------------------------------------------------------------
-| 0010  |   ALU_Out = A * B;
-----------------------------------------------------------------------
-| 0011  |   ALU_Out = A / B;
-----------------------------------------------------------------------
-| 0100  |   ALU_Out = A << 1;
-----------------------------------------------------------------------
-| 0101  |   ALU_Out = A >> 1;
-----------------------------------------------------------------------
-| 0110  |   ALU_Out = A rotated left by 1;
-----------------------------------------------------------------------
-| 0111  |   ALU_Out = A rotated right by 1;
-----------------------------------------------------------------------
-| 1000  |   ALU_Out = A and B;
-----------------------------------------------------------------------
-| 1001  |   ALU_Out = A or B;
-----------------------------------------------------------------------
-| 1010  |   ALU_Out = A xor B;
-----------------------------------------------------------------------
-| 1011  |   ALU_Out = A nor B;
-----------------------------------------------------------------------
-| 1100  |   ALU_Out = A nand B;
-----------------------------------------------------------------------
-| 1101  |   ALU_Out = A xnor B;
-----------------------------------------------------------------------
-| 1110  |   ALU_Out = 1 if A>B else 0;
-----------------------------------------------------------------------
-| 1111  |   ALU_Out = 1 if A=B else 0;
-# PROGRAM
+# ENCODER:
+# PRIORITY_ENCODER
+![image](https://github.com/RESMIRNAIR/PRIORITY_ENCODER/assets/154305926/016b3b20-1d4d-48fd-9012-a2c725b822db)
+# Truth Table
+![image](https://github.com/RESMIRNAIR/PRIORITY_ENCODER/assets/154305926/3da43bab-6ee6-456f-858f-4553d3623f8c)
+# LOGIC DIAGRAM:
+![image](https://github.com/raafi63/PRIORITY_ENCODER/assets/167068438/48c3a5f6-a436-45bb-9a71-cfde3a48120d)
+
+
+# VERILOG CODE:
 ```
-module alu (
-
-input[7:0]A,B,
-
-input[3:0]ALU_SEL,
-
-output reg[7:0]Result
-
-);
-
-always @ (*)
-
-begin  
-
-case(ALU_SEL)
-
-4'b0000:
-# PROGRAM
-```
-module alu (
-
-input[7:0]A,B,
-
-input[3:0]ALU_SEL,
-
-output reg[7:0]Result
-
-);
-
-always @ (*)
-
-begin  
-
-Result=A+B;
-
-4'b0001:
-
-Result=A-B;
-
-4'b0010:
-
-Result=A*B;
-
-4'b0011:
-
-Result=A/B;
-
-4'b0100:
-
-Result=A>>1;
-
-4'b0101:
-
-Result=A<<1;
-
-4'b0110:
-
-Result={A[6:0],A[7]};
-
-4'b0111:
-
-Result={A[0],A[7:1]};
-
-4'b1000:
-
-Result=A&B;
-
-4'b1001:
-
-Result=A|B;
-
-4'b1010:
-
-Result=A^B;
-
-4'b1011:
-
-Result=~(A|B);
-
-4'b1100:
-
-Result=~(A&B);
-
-4'b1101:
-
-Result=~(A^B);
-
-4'b1110:
-
-Result=(A>B)?8'd1:8'd0;
-
-4'b1111:
-
-Result=(A==B)?8'd1:8'd0;
-
-default: Result=A+B;
-
-endcase
-
-end
-
+module encoder(d,a,b,c);
+input [7:0]d;
+output a,b,c;
+or(a,d[4],d[5],d[6],d[7]);
+or(b,d[2],d[3],d[6],d[7]);
+or(c,d[1],d[3],d[5],d[7]);
 endmodule
 ```
-# OUTPUT
+# OUTPUT WAVEFORM:
+![image](https://github.com/raafi63/PRIORITY_ENCODER/assets/167068438/75cf22f4-f82f-42e9-98af-97c4a07bd92b)
 
-![image](https://github.com/raafi63/ALU/assets/167068438/d6847f79-38aa-4a72-bfd2-832c3cf10fef)
 
-# RESULT
-Thus the verilog program for 16bit ALU has been simulated and verified successfully.
+# RESULT:
+Thus the Priority encoder is verified successfully.
